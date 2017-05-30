@@ -18,6 +18,29 @@ struct interruption_entry_struct{
   uint16_t offset_high;
 }__attribute__((packed));
 
+struct cpu_state_struct{
+  uint32_t eax;
+  uint32_t ebx;
+  uint32_t ecx;
+  uint32_t edx;
+  uint32_t ebp;
+  uint32_t esp;
+  uint32_t esi;
+  uint32_t edi;
+}__attribute__((packed));
+
+struct interruption_state_struct{
+  uint_32_t eip;
+  uint32_t cs;
+  uint_32_t eflags;
+  uint_32_t error_code;
+  uint_32_t inturruption_number;
+}__attribute__((packed));
+
+typedef struct cpu_state_struct cpu_state;
+typedef struct interruption_state_struct interruption_state;
+void interrupt_handler(interruption_state interruption_state, cpu_state cpu);
+
 struct interruption_register_struct{
   uint16_t limit_in_bytes;
   uint32_t interruption_table_address;
