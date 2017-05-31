@@ -1,3 +1,9 @@
+global load_idt
+load_idt:
+  mov eax, [esp+4]
+  lidt eax
+  ret
+
 %macro interruption_handler_with_no_error 1
   global interruption_handler_%1
   interruption_handler_%1:

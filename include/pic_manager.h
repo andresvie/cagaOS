@@ -1,0 +1,17 @@
+#ifndef PIC_MANAGER_H
+  #define PIC_MANAGER_H
+  #include "types.h"
+  #define PIC_1_COMMAND_PORT  0x20
+  #define PIC_1_DATA_PORT  PIC_1_COMMAND_PORT + 1
+  #define PIC_2_COMMAND_PORT  0xA0
+  #define PIC_2_DATA_PORT  PIC_2_COMMAND_PORT + 1
+  #define PIC_1_FREE_PORT_RANGE_IRQ 0x20
+  #define PIC_2_FREE_PORT_RANGE_IRQ 0x28
+  #define PIC_ACK_COMMAND 0x20
+  #define PIC_RESTART_AND_ENABLE_CASCADE_MODE_COMMAND 0x11
+  #define PIC_1_SET_IRQ_2_TO_COMUNICATE_WITH_SLAVE_PIC_COMMAND 0x04
+  #define PIC_2_SET_IRQ_2_TO_COMUNICATE_WITH_MASTER_PIC_COMMAND 0x02
+  #define ENABLE_8086_MODE_COMMAND  0x1
+  void remap_pic_irqs();
+  void ack_pic_interruption(uint8_t irq);
+#endif
