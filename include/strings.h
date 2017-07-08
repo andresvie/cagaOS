@@ -8,4 +8,6 @@ int string_len(const char *text);
 int is_new_line(char ch);
 int is_return_of_car(char ch);
 int is_a_tab(char ch);
+char *itoa(int number, char *text);
+char *reverse(char *text);
 #endif

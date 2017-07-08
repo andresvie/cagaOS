@@ -1,8 +1,18 @@
+extern  interrupt_handler
 global load_idt
+global interruption_handler_default
 load_idt:
-  mov eax, [esp+4]
-  lidt eax
+  mov eax,[esp+4]
+  lidt [eax]
+  sti
   ret
+
+
+
+interruption_handler_default:
+  push dword 0x0
+  push dword 0xFFFF
+  jmp general_interruption_handler
 
 %macro interruption_handler_with_no_error 1
   global interruption_handler_%1
@@ -22,20 +32,32 @@ load_idt:
 general_interruption_handler:
   push edi
   push esi
-  push esp
   push ebp
   push edx
   push ecx
   push ebx
   push eax
+  push ds
+  push ebx
+  mov bx,0x10
+  mov ds,bx
+  pop ebx
   call interrupt_handler
+  mov 	al, 0x20
+  out 	0x20, al
+  pop ds
   pop eax
   pop ebx
   pop ecx
   pop edx
   pop ebp
-  pop esp
   pop esi
   pop edi
-  add esp,8
+  add esp,0x08
   iret
+
+test_carlos:
+  ret
+
+interruption_handler_with_no_error 32
+interruption_handler_with_no_error 33

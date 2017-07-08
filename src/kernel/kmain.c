@@ -3,6 +3,8 @@
 #include "serial.h"
 #include "strings.h"
 #include "descriptors_manager.h"
+#include "interruption_handler.h"
+void test_carlos_viera();
 int kmain()
 {
 	gdt_entry_t gdt_entries[NUMBER_OF_DESCRIPTORS];
@@ -17,5 +19,12 @@ int kmain()
 	unsigned short com1 = COM1;
 	configure_serial(com1, 2);
 	write_serial_console(com1, test_serial_console_message, string_len(test_serial_console_message));
+	setup_interruption(&console);
+	while(1){
+		test_carlos_viera();
+	}
 	return 15;
+}
+void test_carlos_viera(){
+
 }

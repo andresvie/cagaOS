@@ -1,12 +1,12 @@
-C_SRC = src/kernel/kmain.c src/kernel/strings.c src/kernel/serial.c src/kernel/console.c src/kernel/descriptors_manager.c
+C_SRC = src/kernel/kmain.c src/kernel/strings.c src/kernel/serial.c src/kernel/console.c src/kernel/descriptors_manager.c src/kernel/interruption_handler.c src/kernel/pic_manager.c
 ASSEMBLY_SRC = src/kernel/port.s
 ASSEMBLY_OBJS = src/kernel/port.o
 OBJS = kmain.o bootloader.o
 CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs -Wall -Werror -Wextra
-CC = gcc -ggdb -c -Iinclude/
-OBJECT_COPY = objcopy
-NASM = nasm -f elf
-LD = ld
+CC = i386-elf-gcc -ggdb -c -Iinclude/
+OBJECT_COPY = i386-elf-objcopy
+NASM = nasm -ggdb -f elf
+LD = i386-elf-ld
 all: compile generate_debub_info generate_iso
 clean:
 	rm cagaOS.iso
@@ -23,6 +23,8 @@ run:
 	qemu-system-i386 -boot d -cdrom cagaOS.iso -m 256 -serial file:cagaOS.log
 debug:
 		qemu-system-i386 -s -S -boot d -cdrom cagaOS.iso -m 256 -serial file:cagaOS.log
+gdb:
+	i386-elf-gdb --tui
 loader:
 	$(NASM) src/loader/bootloader.s
 	mv src/loader/bootloader.o .
@@ -32,6 +34,7 @@ generate_debub_info:
 kernel:
 	$(CC) $(C_SRC) $(CFLAGS)
 	$(NASM) src/kernel/memory_gdt_setup.s && mv src/kernel/memory_gdt_setup.o .
+	$(NASM) src/kernel/interruption_handler_assembly.s && mv src/kernel/interruption_handler_assembly.o .
 drivers:
 	$(NASM) $(ASSEMBLY_SRC)
 	mv $(ASSEMBLY_OBJS) .
