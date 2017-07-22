@@ -26,7 +26,7 @@ struct interruption_register_struct{
   uint32_t interruption_table_address;
 }__attribute__((packed));
 
-struct cpu_state_struct{  
+struct cpu_state_struct{
   uint16_t ds;
   uint32_t eax;
   uint32_t ebx;
@@ -54,7 +54,7 @@ typedef struct interruption_entry_struct interruption_entry;
 typedef struct interruption_register_struct interruption_register;
 
 void interrupt_handler(cpu_state cpu, interruption_state irq_state);
-
+void handler_keyboard_interruption();
 void setup_interruption(char_console *_console);
 extern void load_idt(interruption_register *re);
 #endif

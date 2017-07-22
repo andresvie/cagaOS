@@ -55,9 +55,5 @@ general_interruption_handler:
   pop edi
   add esp,0x08
   iret
-
-test_carlos:
-  ret
-
 interruption_handler_with_no_error 32
 interruption_handler_with_no_error 33

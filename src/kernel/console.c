@@ -8,7 +8,11 @@ void set_char_console_color(char_console *console,char background_color, char fo
   console->font_color = font_color;
   clear_console(console);
 }
-
+void put_char_to_console(char_console *console, const char character)
+{
+  const char buffer[2] = {character, 0x0};
+  write_text_to_char_console(console, buffer);
+}
 void write_text_to_char_console(char_console *console, const char *text){
   int column = 0;
   int length = string_len(text);

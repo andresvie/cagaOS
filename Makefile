@@ -1,11 +1,11 @@
-C_SRC = src/kernel/kmain.c src/kernel/strings.c src/kernel/serial.c src/kernel/console.c src/kernel/descriptors_manager.c src/kernel/interruption_handler.c src/kernel/pic_manager.c
+C_SRC = src/kernel/kmain.c src/kernel/strings.c src/kernel/serial.c src/kernel/console.c src/kernel/descriptors_manager.c src/kernel/keyboard.c src/kernel/interruption_handler.c src/kernel/pic_manager.c
 ASSEMBLY_SRC = src/kernel/port.s
 ASSEMBLY_OBJS = src/kernel/port.o
 OBJS = kmain.o bootloader.o
-CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs -Wall -Werror -Wextra
+CFLAGS = -std=gnu99 -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs -Wall -Werror -Wextra
 CC = i386-elf-gcc -ggdb -c -Iinclude/
 OBJECT_COPY = i386-elf-objcopy
-NASM = nasm -ggdb -f elf
+NASM = nasm -g -f elf
 LD = i386-elf-ld
 all: compile generate_debub_info generate_iso
 clean:

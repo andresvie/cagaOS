@@ -30,6 +30,7 @@ typedef struct{
 }char_console;
 void set_char_console_color(char_console *console,char background_color, char font_color);
 void write_text_to_char_console(char_console *console,const char *text);
+void put_char_to_console(char_console *console, const char character);
 void clear_console(char_console *console);
 void move_cursor_on_console(char_console *console);
 #endif

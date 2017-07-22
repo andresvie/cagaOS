@@ -1,24 +1,21 @@
 #include "interruption_handler.h"
 #include "pic_manager.h"
 #include "strings.h"
+#include "keyboard.h"
 interruption_register idt_r;
 interruption_entry idt[NUMBER_OF_INTERRUPTIONS];
 static char_console *console=0x0;
 static void set_idt(uint8_t num, uint32_t function_address);
-
 void interrupt_handler(cpu_state cpu, interruption_state irq_state)
 {
-  char text[50];
-  if(irq_state.inturruption_number == 0x21){
-    set_char_console_color(console,  BLUE, BLACK);
+  if(cpu.ds == 0)
+  {
+    return;
   }
-  write_text_to_char_console(console,"new interruption number irq: ");
-  itoa(irq_state.inturruption_number, text);
-  write_text_to_char_console(console,text);
-  write_text_to_char_console(console,", ds: ");
-  itoa(cpu.ds, text);
-  write_text_to_char_console(console,text);
-  write_text_to_char_console(console,"\n");
+  if(irq_state.inturruption_number == 0x21){
+
+    handler_keyboard_interruption(console);
+  }
   ack_pic_interruption(irq_state.inturruption_number);
 }
 
