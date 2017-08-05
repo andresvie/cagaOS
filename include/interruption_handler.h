@@ -55,6 +55,6 @@ typedef struct interruption_register_struct interruption_register;
 
 void interrupt_handler(cpu_state cpu, interruption_state irq_state);
 void handler_keyboard_interruption();
-void setup_interruption(char_console *_console);
+void setup_interruption();
 extern void load_idt(interruption_register *re);
 #endif

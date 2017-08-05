@@ -1,4 +1,12 @@
-#include "strings.h"
+#include "string.h"
+void fill_empty(char *buffer,size_t bytes)
+{
+  size_t i;
+  for(i=0;i<bytes;i++)
+  {
+    buffer[i]=' ';
+  }
+}
 char *itoa(int number, char *text)
 {
   int new_number = number;
@@ -45,7 +53,7 @@ char *reverse(char *text)
 
 int string_len(const char *text){
   int length = 0;
-  while(*text!=NULL_CHARACTER){
+  while(*text != NULL_CHARACTER){
     text++;
     length++;
   }

@@ -38,13 +38,15 @@ static unsigned char scan_code_to_ascii[128] =
     0,	/* F12 Key */
     0,	/* All other keys are undefined */
 };
-void handler_keyboard_interruption(char_console *console)
+void handler_keyboard_interruption()
 {
   unsigned char scan_code = read_port(KEYBOARD_DATA_PORT);
+
   if(IS_KEY_RELEASED(scan_code))
   {
+    //write_text_to_char_console( "the scan code up : \n");
     return;
   }
   char character_to_put = scan_code_to_ascii[scan_code];
-  put_char_to_console(console, character_to_put);
+  put_char_to_console(character_to_put);
 }

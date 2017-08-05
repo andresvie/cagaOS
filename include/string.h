@@ -1,5 +1,6 @@
-#ifndef STRINGS_H
-#define STRINGS_H
+#ifndef STRING_H
+#define STRING_H
+#include "types.h"
 #define TAB 0x9
 #define NEW_LINE 0xa
 #define RETURN_OF_CAR 0xd
@@ -10,4 +11,6 @@ int is_return_of_car(char ch);
 int is_a_tab(char ch);
 char *itoa(int number, char *text);
 char *reverse(char *text);
+extern void *memcpy(const void *src,void *dest, size_t n);
+void fill_empty(char *buffer,size_t bytes);
 #endif

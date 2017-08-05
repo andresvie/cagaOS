@@ -21,16 +21,27 @@
 #define ROWS  25
 #define COLUMNS 80
 #define TOTAL_ROWS  50
-#define TOAL_COLUMNS  160
+#define TOTAL_COLUMNS  160
+#define NUMBER_OF_CONSOLES 0x08
+#define DEFAULT_BACK_GROUND_COLOR BLACK
+#define DEFAULT_FRONT_COLOR WHITE
 typedef struct{
   short column;
   short row;
+  short buffer_index;
+  short offset;
   char background_color;
   char font_color;
+  char buffer[COLUMNS * ROWS];
 }char_console;
-void set_char_console_color(char_console *console,char background_color, char font_color);
-void write_text_to_char_console(char_console *console,const char *text);
-void put_char_to_console(char_console *console, const char character);
+
+void scroll(char_console *console);
+void init_console();
+void set_char_console_color(char background_color, char font_color);
+void write_text_to_char_console(const char *text);
+void put_char_to_console(const char character);
 void clear_console(char_console *console);
 void move_cursor_on_console(char_console *console);
+
+
 #endif
