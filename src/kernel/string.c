@@ -2,10 +2,11 @@
 void fill_empty(char *buffer,size_t bytes)
 {
   size_t i;
-  for(i=0;i<bytes;i++)
+  for(i=0;i<bytes - 1;i++)
   {
     buffer[i]=' ';
   }
+  buffer[bytes] = 0x0;
 }
 char *itoa(int number, char *text)
 {
@@ -51,7 +52,7 @@ char *reverse(char *text)
   return text;
 }
 
-int string_len(const char *text){
+uint32_t string_len(const char *text){
   int length = 0;
   while(*text != NULL_CHARACTER){
     text++;

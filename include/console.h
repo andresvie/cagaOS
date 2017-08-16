@@ -1,5 +1,6 @@
 #ifndef CONSOLE_H
 #define CONSOLE_H
+#include "types.h"
 #define BLACK 0x0
 #define BLUE 0x1
 #define GREEN 0x2
@@ -22,26 +23,20 @@
 #define COLUMNS 80
 #define TOTAL_ROWS  50
 #define TOTAL_COLUMNS  160
-#define NUMBER_OF_CONSOLES 0x08
+#define NUMBER_OF_CONSOLES 0x01
 #define DEFAULT_BACK_GROUND_COLOR BLACK
 #define DEFAULT_FRONT_COLOR WHITE
+#define CONSOLE_BUFFER_SIZE ROWS * COLUMNS
 typedef struct{
+  uint32_t buffer_index;
   short column;
   short row;
-  short buffer_index;
-  short offset;
   char background_color;
   char font_color;
-  char buffer[COLUMNS * ROWS];
 }char_console;
 
-void scroll(char_console *console);
-void init_console();
+void init_console(char_console *_console, char *back_buffer, char *buffer);
 void set_char_console_color(char background_color, char font_color);
 void write_text_to_char_console(const char *text);
 void put_char_to_console(const char character);
-void clear_console(char_console *console);
-void move_cursor_on_console(char_console *console);
-
-
 #endif
