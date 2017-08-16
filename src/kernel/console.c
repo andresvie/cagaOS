@@ -1,5 +1,4 @@
 #include <console.h>
-#include "console.h"
 #include "string.h"
 #include "io.h"
 
