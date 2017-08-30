@@ -12,14 +12,18 @@ SECTIONS
 	{
 		*(.rodata*) 
 	}
+
 	.data ALIGN (0x1000):
 	{
 		*(.data) 
 	}
+
 	.bss ALIGN (0x1000):
 	{
 		*(COMMON) 
 		*(.bss) 
 	}
+
+
     kernel_physical_memory_end = .;
 }

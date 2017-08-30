@@ -9,7 +9,8 @@ char console_buffer[CONSOLE_BUFFER_SIZE];
 
 void test_carlos_viera();
 
-void kmain(uint32_t kernel_physical_memory_start, uint32_t kernel_physical_memory_end) {
+void kmain(uint32_t kernel_physical_memory_start, uint32_t kernel_physical_memory_end, uint32_t page_directory,
+           uint32_t page_table,uint32_t stack_begin) {
     gdt_entry_t gdt_entries[NUMBER_OF_DESCRIPTORS];
     setup_gdt_entries(gdt_entries);
     char_console console;
@@ -30,6 +31,19 @@ void kmain(uint32_t kernel_physical_memory_start, uint32_t kernel_physical_memor
     write_text_to_char_console("Kernel Memory Address End:");
     write_text_to_char_console(buffer);
     write_text_to_char_console("\n");
+    itoa(page_directory, buffer);
+    write_text_to_char_console("Page directory address:");
+    write_text_to_char_console(buffer);
+    write_text_to_char_console("\n");
+    itoa(page_table, buffer);
+    write_text_to_char_console("Page table address:");
+    write_text_to_char_console(buffer);
+    write_text_to_char_console("\n");
+    itoa(stack_begin, buffer);
+    write_text_to_char_console("Stack address:");
+    write_text_to_char_console(buffer);
+    write_text_to_char_console("\n");
+
     setup_interruption();
 
     while (1) {

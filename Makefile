@@ -1,4 +1,4 @@
-C_SRC = src/kernel/kmain.c src/kernel/console.c src/kernel/string.c src/kernel/serial.c src/kernel/descriptors_manager.c src/kernel/keyboard.c src/kernel/interruption_handler.c src/kernel/pic_manager.c
+C_SRC = src/kernel/kmain.c src/kernel/console.c src/kernel/string.c src/kernel/serial.c src/kernel/descriptors_manager.c src/kernel/keyboard.c src/kernel/interruption_handler.c src/kernel/pic_manager.c src/kernel/virtual_memory_manager.c
 ASSEMBLY_SRC = src/kernel/port.s
 ASSEMBLY_OBJS = src/kernel/port.o
 OBJS = kmain.o bootloader.o
