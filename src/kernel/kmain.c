@@ -1,3 +1,4 @@
+#include <virtual_memory_manager.h>
 #include "console.h"
 #include "serial.h"
 #include "string.h"
@@ -6,11 +7,18 @@
 
 char console_back_buffer[CONSOLE_BUFFER_SIZE];
 char console_buffer[CONSOLE_BUFFER_SIZE];
+struct kernel_params_struct {
+    physical_address kernel_physical_memory_start;
+    physical_address kernel_physical_memory_end;
+    physical_address page_directory;
+    physical_address page_table;
+    physical_address stack_begin;
+}__attribute__((packed));
+typedef struct kernel_params_struct kernel_params;
 
 void test_carlos_viera();
 
-void kmain(uint32_t kernel_physical_memory_start, uint32_t kernel_physical_memory_end, uint32_t page_directory,
-           uint32_t page_table,uint32_t stack_begin) {
+void kmain(kernel_params params) {
     gdt_entry_t gdt_entries[NUMBER_OF_DESCRIPTORS];
     setup_gdt_entries(gdt_entries);
     char_console console;
@@ -23,29 +31,29 @@ void kmain(uint32_t kernel_physical_memory_start, uint32_t kernel_physical_memor
     unsigned short com1 = COM1;
     configure_serial(com1, 2);
     write_serial_console(com1, test_serial_console_message, string_len(test_serial_console_message));
-    itoa(kernel_physical_memory_start, buffer);
+    itoa(params.kernel_physical_memory_start, buffer);
     write_text_to_char_console("Kernel Memory Address Start:");
     write_text_to_char_console(buffer);
     write_text_to_char_console("\n");
-    itoa(kernel_physical_memory_end, buffer);
+    itoa(params.kernel_physical_memory_end, buffer);
     write_text_to_char_console("Kernel Memory Address End:");
     write_text_to_char_console(buffer);
     write_text_to_char_console("\n");
-    itoa(page_directory, buffer);
+    itoa(params.page_directory, buffer);
     write_text_to_char_console("Page directory address:");
     write_text_to_char_console(buffer);
     write_text_to_char_console("\n");
-    itoa(page_table, buffer);
+    itoa(params.page_table, buffer);
     write_text_to_char_console("Page table address:");
     write_text_to_char_console(buffer);
     write_text_to_char_console("\n");
-    itoa(stack_begin, buffer);
+    itoa(params.stack_begin, buffer);
     write_text_to_char_console("Stack address:");
     write_text_to_char_console(buffer);
     write_text_to_char_console("\n");
 
     setup_interruption();
-
+    init_virtual_memory_page(params.page_directory, params.page_table);
     while (1) {
         test_carlos_viera();
     }
