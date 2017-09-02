@@ -23,8 +23,8 @@ interruption_handler_default:
 %endmacro
 
 %macro interruption_handler_with_error 1
-  global interruption_handler_number_%1
-  interruption_handler_number_%1:
+  global interruption_handler_%1
+  interruption_handler_%1:
     push dword %1
     jmp general_interruption_handler
 %endmacro
@@ -42,9 +42,18 @@ general_interruption_handler:
   mov bx,0x10
   mov ds,bx
   pop ebx
+  mov eax,cr4
+  mov ebx,cr3
+  mov ecx,cr2
+  push eax
+  push ebx
+  push ecx
   call interrupt_handler
   mov 	al, 0x20
   out 	0x20, al
+  pop ecx
+  pop ebx
+  pop eax
   pop ds
   pop eax
   pop ebx
@@ -57,3 +66,5 @@ general_interruption_handler:
   iret
 interruption_handler_with_no_error 32
 interruption_handler_with_no_error 33
+interruption_handler_with_error 13
+interruption_handler_with_error 14

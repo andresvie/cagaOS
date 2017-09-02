@@ -18,6 +18,8 @@ typedef struct kernel_params_struct kernel_params;
 
 void test_carlos_viera();
 
+uint32_t t = 0;
+
 void kmain(kernel_params params) {
     gdt_entry_t gdt_entries[NUMBER_OF_DESCRIPTORS];
     setup_gdt_entries(gdt_entries);
@@ -51,7 +53,6 @@ void kmain(kernel_params params) {
     write_text_to_char_console("Stack address:");
     write_text_to_char_console(buffer);
     write_text_to_char_console("\n");
-
     setup_interruption();
     init_virtual_memory_page(params.page_directory, params.page_table);
     while (1) {
@@ -61,5 +62,8 @@ void kmain(kernel_params params) {
 }
 
 void test_carlos_viera() {
-
+    t++;
+    if (t > 250) {
+        t = 0;
+    }
 }

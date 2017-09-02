@@ -40,6 +40,7 @@ kernel:
 	$(CC) $(C_SRC) $(CFLAGS)
 	$(NASM) src/kernel/memory_gdt_setup.s && mv src/kernel/memory_gdt_setup.o .
 	$(NASM) src/kernel/string_perf.s && mv src/kernel/string_perf.o .
+	$(NASM) src/kernel/mm.s && mv src/kernel/mm.o .
 	$(NASM) src/kernel/interruption_handler_assembly.s && mv src/kernel/interruption_handler_assembly.o .
 drivers:
 	$(NASM) $(ASSEMBLY_SRC)
