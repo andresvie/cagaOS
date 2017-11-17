@@ -16,6 +16,9 @@ void interrupt_handler(cpu_state cpu, interruption_state irq_state) {
     if (irq_state.interruption_number == 0x21) {
         handler_keyboard_interruption();
     }
+    if (CLOCK_INTERRUPTION_NUMBER == irq_state.interruption_number) {
+        handler_timer_interruption();
+    }
     ack_pic_interruption(irq_state.interruption_number);
 }
 

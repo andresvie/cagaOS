@@ -4,6 +4,7 @@
 #include "string.h"
 #include "descriptors_manager.h"
 #include "interruption_handler.h"
+#include "clock.h"
 
 char console_back_buffer[CONSOLE_BUFFER_SIZE];
 char console_buffer[CONSOLE_BUFFER_SIZE];
@@ -32,6 +33,7 @@ void kmain(kernel_params params) {
     set_char_console_color(RED, BLACK);
     unsigned short com1 = COM1;
     configure_serial(com1, 2);
+    init_clock();
     write_serial_console(com1, test_serial_console_message, string_len(test_serial_console_message));
     itoa(params.kernel_physical_memory_start, buffer);
     write_text_to_char_console("Kernel Memory Address Start:");
@@ -56,7 +58,8 @@ void kmain(kernel_params params) {
     setup_interruption();
     init_virtual_memory_page(params.page_directory, params.page_table);
     while (1) {
-        test_carlos_viera();
+        timer_wait(1000 * 30);
+        write_text_to_char_console("300ms passs\n");
     }
 
 }

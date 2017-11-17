@@ -24,6 +24,8 @@ extern void interruption_handler_14();
 #define GENERAL_PROTECTION_EXCEPTION (uint32_t)interruption_handler_13
 #define PAGE_FAULT (uint32_t)interruption_handler_14
 
+#define CLOCK_INTERRUPTION_NUMBER 0x20
+
 struct interruption_entry_struct {
     uint16_t offset_low;
     uint16_t code_descriptor;
@@ -70,6 +72,8 @@ typedef struct interruption_register_struct interruption_register;
 void interrupt_handler(cpu_state cpu, interruption_state irq_state);
 
 void handler_keyboard_interruption();
+
+void handler_timer_interruption();
 
 void setup_interruption();
 

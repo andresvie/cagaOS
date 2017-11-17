@@ -36,3 +36,4 @@
 *.log
 *.sym
 emulatorlog.txt
+.idea/
