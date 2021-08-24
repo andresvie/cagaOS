@@ -25,7 +25,7 @@ generate_iso:
 run_bochs:
 	bochs -f bochsrc.txt -q
 run:
-	$(QEMU) -boot d -cdrom cagaOS.iso -m 256 -serial file:cagaOS.log
+	$(QEMU) -boot d -cdrom cagaOS.iso -m 256 -serial file:cagaOS.log 
 debug:
 	$(QEMU) -s -S -boot d -cdrom cagaOS.iso -m 256 -serial file:cagaOS.log
 gdb:
