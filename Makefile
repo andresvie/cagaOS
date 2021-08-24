@@ -4,11 +4,11 @@ ASSEMBLY_OBJS = src/kernel/port.o
 OBJS = kmain.o bootloader.o
 CFLAGS = -std=gnu99 -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs -Wall -Werror -Wextra
 LIB_PATH=.
-CC = /opt/local/bin/i386-elf-gcc -O0 -ggdb  -Iinclude/      -c
-OBJECT_COPY = /opt/local/bin/i386-elf-objcopy
+CC = x86_64-elf-gcc -O0 -ggdb  -Iinclude/ -c
+OBJECT_COPY = x86_64-elf-objcopy
 NASM = nasm -g -f elf
-LD = /opt/local/bin/i386-elf-ld
-QEMU= /opt/local/bin/qemu-system-i386
+LD = x86_64-elf-ld
+QEMU=qemu-system-i386
 all: compile generate_debub_info generate_iso
 clean:
 	rm cagaOS.iso
@@ -20,7 +20,7 @@ compile: loader drivers kernel
 	rm *.o
 generate_iso:
 	mv kernel.elf iso/boot
-	/usr/local/bin/mkisofs -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -A os   -quiet -boot-info-table -o os.iso iso
+	mkisofs -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -A os   -quiet -boot-info-table -o os.iso iso
 	mv os.iso cagaOS.iso
 run_bochs:
 	bochs -f bochsrc.txt -q
